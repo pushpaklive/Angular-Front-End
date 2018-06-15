@@ -1,0 +1,30 @@
+<!--<textarea [value]="'Ready to submit?'" cols="60" #postInput></textarea>-->
+<mat-card>
+    <form (submit)="addPost(postForm)" #postForm="ngForm">
+            <mat-form-field>
+                    <input matInput type="text" 
+                    name="title"
+                    ngModel
+                    required
+                    minlength="3"
+                    #title="ngModel">
+                    <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput
+                    name="content"
+                    rows="5"
+                    ngModel
+                    required
+                    #content="ngModel"></textarea>
+                    <mat-error *ngIf="content.invalid">Please enter some content.</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="warn" type="submit">Submit</button>
+            </form>
+</mat-card>
+
+
+<!--#postInput can be used as a selector/as a reference
+for textarea. check ts file for more.
+This can be easily done using ngModel i.e 2-directional binding.
+Commenting 1-way use using reference for now-->
