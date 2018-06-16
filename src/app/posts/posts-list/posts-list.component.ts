@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { PostsService } from "../posts.service";
 
 @Component({
     selector:'app-posts-list',
@@ -6,7 +7,7 @@ import { Component, Input } from "@angular/core";
     styleUrls:['./posts-list.component.css']
 })
 
-export class PostsListComponent{
+export class PostsListComponent implements OnInit{
     /*posts = [
         {title:"Post A",content:"Post A\'s content"},
         {title:"Post B",content:"Post B\'s content"},
@@ -15,5 +16,13 @@ export class PostsListComponent{
         {title:"Post E",content:"Post E\'s content"}
     ];*/
 
-    @Input() posts:Post[]=[];//using *ngIf in html to render only if posts size > 0
+    posts:Post[]=[];//using *ngIf in html to render only if posts size > 0
+    constructor(public postsService : PostsService){}
+
+    ngOnInit(){
+        this.posts = this.postsService.getPosts();
+        this.postsService.getPostupdatedAsObservable().subscribe((posts)=>{
+            this.posts = posts;
+        });
+    }
 }
